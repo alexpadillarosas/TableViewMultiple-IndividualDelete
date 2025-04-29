@@ -40,8 +40,7 @@ class CustomButtonsTableViewController: UITableViewController {
             print(product.shortDescription())
         }
         
-        removeItemsLabel.isHidden = selectedRows.count > 0 ? false : true
-        removeItemsButton.isHidden = removeItemsLabel.isHidden
+        headerVisibility(visible: false)
             
         
     }
@@ -68,10 +67,6 @@ class CustomButtonsTableViewController: UITableViewController {
         cell.productImageView.image = product.emoji.emojiToImage()
         cell.productNameLabel.text = product.name
         cell.productPriceLabel.text = product.priceDescription()
-//        cell.productUnitLabel.text = product.measurementUnitLabel()
-
-        cell.increaseQtyButton.tag = indexPath.row
-        cell.decreaseQtyButton.tag = indexPath.row
         
         switch product.saleType {
         case .byUnit:
@@ -80,8 +75,10 @@ class CustomButtonsTableViewController: UITableViewController {
             cell.productQuantityLabel.text = "0.0"
         }
         
+        cell.increaseQtyButton.tag = indexPath.row
         cell.increaseQtyButton.addTarget(self, action: #selector(increaseQtyDidPress(sender:)), for: UIControl.Event.touchUpInside)
         
+        cell.decreaseQtyButton.tag = indexPath.row
         cell.decreaseQtyButton.addTarget(self, action: #selector(decreaseQtyDidPress(sender:)), for: UIControl.Event.touchUpInside)
         
         //See code in extensions
